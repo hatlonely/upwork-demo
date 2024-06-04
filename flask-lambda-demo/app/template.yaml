@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Hello Flask SAM Template
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  HelloFlaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      MemorySize: 256
+      # 函数 url
+      FunctionUrlConfig:
+        AuthType: NONE
+    Metadata:
+      DockerTag: v1
+      DockerContext: .
+      Dockerfile: Dockerfile
+
+Outputs:
+  GinApi:
+    Description: "Hello Flask Sam Template"
+    Value:
+      Fn::GetAtt: HelloFlaskFunction.FunctionUrl
